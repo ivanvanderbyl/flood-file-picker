@@ -27,12 +27,14 @@ var FileModel = Ember.Object.extend({
     return htmlSafe('width: ' + width + '%;');
   }),
 
-  isComplete: function() {
+  isComplete: Ember.computed('progressValue', function() {
     return this.get('progressValue') === 100;
-  }.property('progressValue'),
+  }),
 });
 
 export default Ember.Component.extend({
+  uploader: Ember.inject.service(),
+
   classNames: ['FilePicker'],
   classNameBindings: [
     'multiple:FilePicker--multiple:FilePicker--single',
@@ -55,6 +57,7 @@ export default Ember.Component.extend({
   addFile(file) {
     var fileObject = FileModel.create({file: file, name: file.name});
     this.get('files').addObject(fileObject);
+    return fileObject;
   },
 
   removeFiles() {
@@ -69,8 +72,13 @@ export default Ember.Component.extend({
   handleFiles(files) {
     this.removeFiles();
     for (var i = files.length - 1; i >= 0; i--) {
-      this.addFile(files[i]);
+      var fileRecord = this.addFile(files[i]);
+      this.uploadFile(fileRecord);
     };
+  },
+
+  uploadFile(file) {
+    this.sendAction('upload-file', file);
   },
 
   /**
@@ -119,5 +127,10 @@ export default Ember.Component.extend({
   dragLeave: function(event) {
     event.preventDefault();
     var count = this.decrementProperty('count');
-  }
+  },
+
+  // _initializeUploadOptions: function() {
+  //   var buildUrl = this.container.lookup('adapter:application').get('_buildUrl');
+  //   this.set('buildUrl', buildUrl);
+  // }.on('init'),
 });

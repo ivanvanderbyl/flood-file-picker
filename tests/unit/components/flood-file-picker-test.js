@@ -113,8 +113,18 @@ describeComponent(
 
         expect(component.get('files.firstObject.progressValue')).to.equal(0);
       });
+    });
 
+    describe('uploading files', function () {
+      var component;
 
+      beforeEach(function () {
+        component = this.subject();
+      });
+
+      it('has an uploader', function () {
+        expect(component.uploader).to.exist();
+      });
     })
   }
 );

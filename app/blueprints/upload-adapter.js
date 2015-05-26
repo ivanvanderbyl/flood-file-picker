@@ -1,0 +1,1 @@
+export { default } from 'flood-file-picker/blueprints/upload-adapter';
