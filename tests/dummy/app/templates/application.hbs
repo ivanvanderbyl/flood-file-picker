@@ -1,3 +1,5 @@
 <h2 id="title">Welcome to Ember.js</h2>
 
-{{outlet}}
+{{#flood-file-picker fileAdded="fileAdded" accept=".jmx,.zip" multiple=true}}
+  <p>Drop your test files here, or click to browse</p>
+{{/flood-file-picker}}

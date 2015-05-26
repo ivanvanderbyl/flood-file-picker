@@ -1,0 +1,29 @@
+$file-picker-border: #dfdfdf !default;
+$file-picker-text-color: #999999 !default;
+
+.FilePicker {
+  .DropZone {
+    width: 100%;
+    border: 1px dashed $file-picker-border;
+    border-radius: 3px;
+    padding: 2rem;
+    box-sizing: border-box;
+    color: $file-picker-text-color;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &.DropZone--is-dragging,
+    &.over {
+      background: $file-picker-border;
+      border-color: $file-picker-border;
+    }
+  }
+
+  .FilePicker-Input {
+    display: none;
+  }
+}
+

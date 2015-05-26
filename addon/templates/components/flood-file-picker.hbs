@@ -1,0 +1,27 @@
+<div class="FilePicker-container" {{action "selectFiles"}}>
+  {{#if view.dropzone}}
+    <div class="DropZone {{if hasFilesDraggedOver "DropZone--is-dragging"}}">
+      {{yield}}
+    </div>
+  {{else}}
+    {{yield}}
+  {{/if}}
+
+  {{input type="file" action="filesSelected" value=file accept=accept multiple=multiple class="FilePicker-Input"}}
+</div>
+
+{{#if listFiles}}
+  <div class="FileList">
+    {{#each files as |file|}}
+      <div class="File {{if file.isComplete "File--complete" "File--incomplete"}}">
+        <span class="File-name">{{file.name}}</span>
+        {{#if progress}}
+          <div class="File-progress">
+            <span style={{file.progressStyle}}></span>
+          </div>
+        {{/if}}
+        <span class="Button Button--delete" {{action 'removeFile' file}}>&times;</span>
+      </div>
+    {{/each}}
+  </div>
+{{/if}}
